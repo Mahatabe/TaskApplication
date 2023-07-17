@@ -1,0 +1,76 @@
+﻿@model IEnumerable<TaskApplication.Models.User>
+
+@{
+    ViewBag.Title = "User List";
+}
+
+<h2>User List</h2>
+
+@Html.Raw(TempData["InsertMsg"])
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phoneNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emailNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userImg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userCV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dob)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.fname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phoneNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.emailNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userCity)
+        </td>
+        <td>
+            <img src="@Url.Content(item.userImg)" height="100" width="100" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userCV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dob)
+        </td>
+    </tr>
+}
+
+</table>

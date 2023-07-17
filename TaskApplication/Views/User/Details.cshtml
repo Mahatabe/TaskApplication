@@ -1,0 +1,137 @@
+﻿@model TaskApplication.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<style>
+    .profile-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .profile-image {
+        border-radius: 5px;
+        border: 1px solid #bbb9b9;
+        width: 250px;
+        height: 250px;
+    }
+
+    .profile-info {
+        flex-grow: 1;
+    }
+
+        .profile-info h3 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-info dt {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .profile-info dd {
+            margin-bottom: 10px;
+        }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        text-decoration: none;
+        background-color: #dc3545;
+    }
+
+    .edit-button {
+        margin-left: 10px;
+    }
+</style>
+
+<div class="profile-container">
+    <div>
+        <img src="@Url.Content("~/Image/" + System.IO.Path.GetFileName(Model.userImg))" class="profile-image" alt="" />
+    </div>
+    <div class="profile-info">
+        <h3>
+            @Html.DisplayFor(model => model.fname) @Html.DisplayFor(model => model.lname)
+            @Html.ActionLink("Edit", "Edit")
+            
+        </h3>
+        <dl>
+            <dt>Age:</dt>
+            <dd>@((DateTime.Now - Model.dob).TotalDays / 365)</dd>
+
+            <dt>Gender:</dt>
+            <dd>
+                @{
+                    string gender = "";
+                    int userId = Model.userId;
+
+                    if (userId % 2 == 0)
+                    {
+                        gender = "Male";
+                    }
+                    else if (userId % 2 == 1)
+                    {
+                        gender = "Female";
+                    }
+                    else
+                    {
+                        bool isPrime = true;
+
+                        if (userId < 2)
+                        {
+                            isPrime = false;
+                        }
+                        else
+                        {
+                            for (int i = 2; i <= Math.Sqrt(userId); i++)
+                            {
+                                if (userId % i == 0)
+                                {
+                                    isPrime = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (isPrime)
+                        {
+                            gender = "Others";
+                        }
+                    }
+
+                    @gender
+                }
+            </dd>
+
+            <dt>Address:</dt>
+            <dd>@Html.DisplayFor(model => model.userCity)</dd>
+
+            <dt>Phone:</dt>
+            <dd>@Html.DisplayFor(model => model.phoneNo)</dd>
+
+            <dt>Email:</dt>
+            <dd>@Html.DisplayFor(model => model.emailNo)</dd>
+
+            <dt>View CV:</dt>
+            <dd>
+                @if (!string.IsNullOrEmpty(Model.userCV))
+                {
+                    <a href="@Url.Content(Model.userCV)" class="btn" download>Download</a>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Back to Home", "Index", "Home")
+</p>
